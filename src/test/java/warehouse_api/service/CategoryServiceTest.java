@@ -1,9 +1,6 @@
 package warehouse_api.service;
 
-
-//import org.jboss.arquillian.junit.Arquillian;
 import junit.framework.TestCase;
-import org.hibernate.Hibernate;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -45,7 +42,6 @@ public class CategoryServiceTest extends TestCase {
 
     @Test
     public void testAll() throws NamingException {
-//        CommentService converter = (CommentService) ctx.lookup("java:global/classes/CommentService");
         CategoryService categoryService = (CategoryService) ctx.lookup("java:global/classes/CategoryService");
 
         List<Category> all1 = categoryService.all();
