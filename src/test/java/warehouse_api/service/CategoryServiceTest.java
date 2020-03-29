@@ -23,13 +23,12 @@ public class CategoryServiceTest extends TestCase {
 
     private  Context  ctx;
     private  EJBContainer ejbContainer;
-//
+
     @BeforeClass
     public  void setUp() {
         Map<String, Object> properties = new HashMap<String, Object>();
 //        properties.put(EJBContainer.APP_NAME, "tbi-test");
         properties.put(EJBContainer.MODULES, new File("target/classes")); //Deploying app
-//        properties.put("org.glassfish.ejb.embedded.glassfish.installation.root", "./glassfish-install/glassfish"); // glassfish domain.xml
         properties.put("org.glassfish.ejb.embedded.glassfish.installation.root", "./src/test/glassfish"); // glassfish domain.xml
 
 

@@ -1,6 +1,9 @@
 <!--    IMPORTANT!!!!!!!!!  -->
 <!--https://stackoverflow.com/questions/6739987/embedded-glassfish-ignores-maven-test-resources-->
 <!--https://stackoverflow.com/questions/17457615/same-but-different-domain-xml-when-running-embedded-glassfish-4-0-->
+
+<!--__ds_jdbc_ra-->
+<!--https://github.com/stevesaliman/entity-pruner/blob/master/glassfish-3.1.1/lib/install/applications/__ds_jdbc_ra/__ds_jdbc_ra.jar -->
 <domain log-root="${com.sun.aas.instanceRoot}/logs" application-root="${com.sun.aas.instanceRoot}/applications"
         version="10.0">
     <security-configurations>
@@ -29,7 +32,7 @@
             <property name="databaseName" value="${com.sun.aas.instanceRoot}/lib/databases/embedded_default"/>
             <property name="connectionAttributes" value=";create=true"/>
         </jdbc-connection-pool>
-<!--        <jdbc-connection-pool driver-classname="org.postgresql.Driver" datasource-classname="org.apache.derby.jdbc.ClientDataSource" res-type="javax.sql.DataSource" description="" name="MyPool" ping="true">-->
+
         <jdbc-connection-pool name="MyPool" ping="true"
                               datasource-classname="org.postgresql.ds.PGSimpleDataSource"
                               res-type="javax.sql.DataSource">
@@ -41,19 +44,6 @@
             <property name="Password" value="24893232"/>
             <property name="URL" value="jdbc:postgresql://localhost:5432/warehouse"/>
             <property name="driverClass" value="com.mysql.jdbc.Driver"/>
-
-<!--            <property name="User" value="APP"></property>-->
-<!--            <property name="RetrieveMessageText" value="true"></property>-->
-<!--            <property name="CreateDatabase" value="true"></property>-->
-<!--            <property name="ServerName" value="localhost"></property>-->
-<!--            <property name="Ssl" value="off"></property>-->
-<!--            <property name="SecurityMechanism" value="4"></property>-->
-<!--            <property name="TraceFileAppend" value="false"></property>-->
-<!--            <property name="TraceLevel" value="-1"></property>-->
-<!--            <property name="PortNumber" value="1527"></property>-->
-<!--            <property name="LoginTimeout" value="0"></property>-->
-<!--            <property name="Password" value="APP"></property>-->
-<!--            <property name="databaseName" value="MYDB"></property>-->
         </jdbc-connection-pool>
 
     </resources>
