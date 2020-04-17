@@ -9,9 +9,6 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <!--    <org.jboss.arquillian.junit.version>1.0.0.CR7</org.jboss.arquillian.junit.version>-->
-    <!--    <org.jboss.arquillian.spi.version>1.0.0.Alpha5</org.jboss.arquillian.spi.version>-->
-    <!--    <version>${org.jboss.arquillian.junit.version}</version>-->
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
         <dependency>
@@ -80,20 +77,6 @@
             <version>10.15.2.0</version>
             <scope>test</scope>
         </dependency>
-
-<!--        <dependency>-->
-<!--            <groupId>org.glassfish.extras</groupId>-->
-<!--            <artifactId>glassfish-embedded-static-shell</artifactId>-->
-<!--            <version>3.1.1</version>-->
-<!--            <scope>test</scope>-->
-<!--&lt;!&ndash;            <systemPath>${glassfish.embedded-static-shell.jar}</systemPath>&ndash;&gt;-->
-<!--        </dependency>-->
-
-
-
-        <!--    arquillian start    *******************-->
-
-        <!--  arquillian end   *******************-->
 
     </dependencies>
 

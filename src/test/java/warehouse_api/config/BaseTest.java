@@ -1,62 +1,38 @@
 package warehouse_api.config;
 
-//import org.dbunit.dataset.CompositeDataSet;
-//import org.dbunit.dataset.DataSetException;
-//import org.dbunit.dataset.IDataSet;
-//import org.dbunit.dataset.ReplacementDataSet;
-//import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
+import junit.framework.TestCase;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 
-import javax.ejb.EJB;
-import javax.sql.DataSource;
-import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import javax.ejb.embeddable.EJBContainer;
+import javax.naming.Context;
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
-public class BaseTest {
+public class BaseTest  extends TestCase {
+    protected Context ctx;
+    protected  EJBContainer ejbContainer;
 
-//    @EJB
-//    private DataSource dataSource;
-//
-//    private String fixturesPath = "/fixtures";
-//
-//    protected void loacData() throws DataSetException, SQLException {
-////        cleanDatabase();
-//        System.out.println("DataSource is null = " + dataSource == null);
-//
-//        Connection connection = dataSource.getConnection();
-//        IDataSet data = getDataSet();
-//        ReplacementDataSet rDataSet = new ReplacementDataSet(data);
-//
-////        rDataSet.addReplacementObject("[create_date]", dateHelper.addDayCount(new Date(), 0));
-//    }
-//
-//    IDataSet getDataSet() throws DataSetException {
-//        List<String> items = Arrays.asList(getFixtures());
-//        InputStream[] streams = new InputStream[getFixtures().length];
-//
-//        for (int i = 0; i < items.size(); i++) {
-//            streams[i] = getFixtureStream(items.get(i));
-//        }
-//
-//        IDataSet[] dataSets = new IDataSet[streams.length];
-//
-//        for (int i = 0; i < streams.length; i++) {
-//            FlatXmlDataSetBuilder builder = new FlatXmlDataSetBuilder();
-//            builder.setColumnSensing(true);
-//            dataSets[i] = builder.build(streams[i]);
-//        }
-//
-//        return new CompositeDataSet(dataSets);
-//    }
-//
-//    protected String[] getFixtures() {
-//        return new String[]{};
-//    }
-//
-//    protected InputStream getFixtureStream(String fixture) {
-//        return BaseTest.class.getResourceAsStream(fixturesPath + fixture);
-//    }
+    @BeforeClass
+    public  void setUp() {
+        Map<String, Object> properties = new HashMap<String, Object>();
+//        properties.put(EJBContainer.APP_NAME, "tbi-test");
+        properties.put(EJBContainer.MODULES, new File("target/classes")); //Deploying app
+        properties.put("org.glassfish.ejb.embedded.glassfish.installation.root", "./src/test/glassfish"); // glassfish domain.xml
+
+        ejbContainer = EJBContainer.createEJBContainer(properties);
+        ctx = ejbContainer.getContext();
+        System.out.println("Opening the test container" );
+    }
+
+    @AfterClass
+    public void tearDown() {
+        ejbContainer.close();
+        System.out.println("Closing the test container");
+    }
+
+    private void initTestDb() {}
+
+    private void cleanTestDb() {}
 }
