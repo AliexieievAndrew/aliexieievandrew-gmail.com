@@ -4,24 +4,42 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.flywaydb.core.Flyway;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
+import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 @Startup
 @Singleton
 public class FlywayConfig {
-    private String MIGRATION_LOCATION = "classpath:/migration/";
-    private String DRIVER = "org.postgresql.Driver";
-    private String JDBC_URL = "jdbc:postgresql://localhost:5432/warehouse";
-    private String DB_USERNAME = "postgres";
-    private String DB_PASSWORD = "24893232";
+    private String MIGRATION_LOCATION;
+    private String DRIVER;
+    private String JDBC_URL;
+    private String DB_USERNAME;
+    private String DB_PASSWORD;
 
     private Flyway flyway;
 
-    @PostConstruct
-    private void init() {
+    public FlywayConfig() {
+        initContextVariables();
+        doMigrate();
+    }
+
+    private void initContextVariables() {
+        try {
+            InitialContext ctx = new InitialContext();
+
+            MIGRATION_LOCATION = (String) ctx.lookup("migration_location");
+            DRIVER = (String) ctx.lookup("db_driver");
+            JDBC_URL = (String) ctx.lookup("connection");
+            DB_USERNAME = (String) ctx.lookup("db_user");
+            DB_PASSWORD = (String) ctx.lookup("db_password");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void doMigrate() {
         flyway = new Flyway();
         flyway.setLocations(MIGRATION_LOCATION);
         flyway.setDataSource(getDataSource());

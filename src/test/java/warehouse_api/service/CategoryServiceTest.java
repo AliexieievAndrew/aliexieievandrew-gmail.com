@@ -33,7 +33,7 @@ public class CategoryServiceTest extends TestCase {
         System.out.println("Opening the container" );
         ctx = ejbContainer.getContext();
     }
-//
+
     @AfterClass
     public void tearDown() {
         ejbContainer.close();
@@ -47,6 +47,7 @@ public class CategoryServiceTest extends TestCase {
         List<Category> all1 = categoryService.all();
         CategoryDao categoryDao = (CategoryDao) ctx.lookup("java:global/classes/CategoryDao");
         List<Category> all = categoryDao.findAll();
+        System.out.println("size:" + all.size());
         System.out.println("TEST");
     }
 

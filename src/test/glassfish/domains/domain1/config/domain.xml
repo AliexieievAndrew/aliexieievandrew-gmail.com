@@ -39,12 +39,33 @@
 
             <property name="serverName" value="localhost"/>
             <property name="portNumber" value="5432"/>
-            <property name="databaseName" value="warehouse"/>
+            <property name="databaseName" value="warehouse_test"/>
             <property name="User" value="postgres"/>
             <property name="Password" value="24893232"/>
             <property name="URL" value="jdbc:postgresql://localhost:5432/warehouse"/>
             <property name="driverClass" value="com.mysql.jdbc.Driver"/>
         </jdbc-connection-pool>
+
+        <custom-resource res-type="java.lang.String" jndi-name="migration_location"
+                         factory-class="org.glassfish.resources.custom.factory.PrimitivesAndStringFactory">
+            <property name="value" value="classpath:/migration/"/>
+        </custom-resource>
+        <custom-resource res-type="java.lang.String" jndi-name="db_driver"
+                         factory-class="org.glassfish.resources.custom.factory.PrimitivesAndStringFactory">
+            <property name="value" value="org.postgresql.Driver"/>
+        </custom-resource>
+        <custom-resource res-type="java.lang.String" jndi-name="connection"
+                         factory-class="org.glassfish.resources.custom.factory.PrimitivesAndStringFactory">
+            <property name="value" value="jdbc:postgresql://localhost:5432/warehouse_test"/>
+        </custom-resource>
+        <custom-resource res-type="java.lang.String" jndi-name="db_user"
+                         factory-class="org.glassfish.resources.custom.factory.PrimitivesAndStringFactory">
+            <property name="value" value="postgres"/>
+        </custom-resource>
+        <custom-resource res-type="java.lang.String" jndi-name="db_password"
+                         factory-class="org.glassfish.resources.custom.factory.PrimitivesAndStringFactory">
+            <property name="value" value="24893232"/>
+        </custom-resource>
 
     </resources>
     <servers>
@@ -52,6 +73,11 @@
             <resource-ref ref="jdbc/__TimerPool"/>
             <resource-ref ref="jdbc/__default"/>
             <resource-ref ref="jdbc/warehouse"/>
+            <resource-ref ref="migration_location"/>
+            <resource-ref ref="db_driver"/>
+            <resource-ref ref="connection"/>
+            <resource-ref ref="db_user"/>
+            <resource-ref ref="db_password"/>
         </server>
     </servers>
     <configs>
