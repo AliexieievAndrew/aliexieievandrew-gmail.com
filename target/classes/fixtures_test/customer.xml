@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <customer id="5000"
+              customer_name="test name"
+              customer_type="PARTNER"
+              customer_address="test"
+    />
+</dataset>
