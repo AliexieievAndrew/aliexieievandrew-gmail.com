@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "item")
@@ -41,6 +42,10 @@ public class Item {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private User user;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
+    private Set<Details> details;
 
     public Long getId() {
         return id;
@@ -96,6 +101,14 @@ public class Item {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Set<Details> getDetails() {
+        return details;
+    }
+
+    public void setDetails(Set<Details> details) {
+        this.details = details;
     }
 
     @Override

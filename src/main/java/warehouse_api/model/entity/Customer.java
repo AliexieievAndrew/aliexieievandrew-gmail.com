@@ -1,9 +1,11 @@
 package warehouse_api.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import warehouse_api.model.enums.CustomerType;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "customer")
@@ -24,6 +26,10 @@ public class Customer {
 
     @Column(name = "customer_address")
     private String customerAddress;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
+    private Set<Details> customerDetails;
 
     public Long getId() {
         return id;
@@ -55,6 +61,14 @@ public class Customer {
 
     public void setCustomerAddress(String customerAddress) {
         this.customerAddress = customerAddress;
+    }
+
+    public Set<Details> getCustomerDetails() {
+        return customerDetails;
+    }
+
+    public void setCustomerDetails(Set<Details> customerDetails) {
+        this.customerDetails = customerDetails;
     }
 
     @Override

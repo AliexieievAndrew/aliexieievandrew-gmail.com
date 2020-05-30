@@ -35,6 +35,10 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<Item> itemCreator;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<Details> userDetails;
+
     public Long getId() {
         return id;
     }
@@ -73,6 +77,22 @@ public class User {
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    public Set<Item> getItemCreator() {
+        return itemCreator;
+    }
+
+    public void setItemCreator(Set<Item> itemCreator) {
+        this.itemCreator = itemCreator;
+    }
+
+    public Set<Details> getUserDetails() {
+        return userDetails;
+    }
+
+    public void setUserDetails(Set<Details> userDetails) {
+        this.userDetails = userDetails;
     }
 
     @Override

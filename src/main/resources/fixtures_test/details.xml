@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <details id="5000"
+             details_type="INCOME"
+             create_date="[create_date]"
+             user_id="5000"
+             customer_id="5000"
+             item_id="5000"
+             quantity="25"
+             additional_info="test info"
+    />
+</dataset>

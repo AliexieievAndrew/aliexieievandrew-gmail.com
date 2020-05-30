@@ -1,0 +1,62 @@
+package warehouse_api.service;
+
+import org.junit.Assert;
+import org.junit.Test;
+import warehouse_api.config.BaseTest;
+import warehouse_api.model.entity.Customer;
+import warehouse_api.model.entity.Details;
+import warehouse_api.model.entity.Item;
+import warehouse_api.model.entity.User;
+import warehouse_api.model.enums.DetailsType;
+import warehouse_api.repository.DetailsDao;
+
+import java.util.Date;
+import java.util.List;
+
+public class DetailsServiceTest extends BaseTest {
+
+    @Test
+    public void testContext() throws Exception{
+        DetailsService detailsService = (DetailsService) ctx.lookup("java:global/classes/DetailsService");
+        DetailsDao detailsDao = (DetailsDao) ctx.lookup("java:global/classes/DetailsDao");
+
+        Assert.assertNotNull(detailsService);
+        Assert.assertNotNull(detailsDao);
+    }
+
+    @Test
+    public void testAll() throws Exception {
+        DetailsService detailsService = (DetailsService) ctx.lookup("java:global/classes/DetailsService");
+
+        List<Details> all = detailsService.all();
+
+        Assert.assertNotNull(all);
+        Assert.assertTrue(all.size() > 0);
+    }
+
+    @Test
+    public void testSave() throws Exception {
+        DetailsService detailsService = (DetailsService) ctx.lookup("java:global/classes/DetailsService");
+        ItemService itemService = (ItemService) ctx.lookup("java:global/classes/ItemService");
+        CustomerService customerService = (CustomerService) ctx.lookup("java:global/classes/CustomerService");
+        UserService userService = (UserService) ctx.lookup("java:global/classes/UserService");
+
+        Item item = itemService.all().get(0);
+        Customer customer = customerService.all().get(0);
+        User user = userService.all().get(0);
+
+        Details details = new Details();
+        details.setItem(item);
+        details.setCustomer(customer);
+        details.setUser(user);
+        details.setQuantity(555D);
+        details.setCreateDate(new Date());
+        details.setDetailsType(DetailsType.INCOME);
+
+        detailsService.save(details);
+        List<Details> detailsList = detailsService.detailsByType(DetailsType.INCOME);
+
+        Assert.assertNotNull(detailsList);
+        Assert.assertTrue(detailsList.size() > 1);
+    }
+}
