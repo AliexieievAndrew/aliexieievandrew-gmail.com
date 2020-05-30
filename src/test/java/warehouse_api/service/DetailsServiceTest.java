@@ -12,6 +12,7 @@ import warehouse_api.repository.DetailsDao;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 public class DetailsServiceTest extends BaseTest {
 
@@ -46,6 +47,7 @@ public class DetailsServiceTest extends BaseTest {
         User user = userService.all().get(0);
 
         Details details = new Details();
+        details.setOrderId(UUID.randomUUID());
         details.setItem(item);
         details.setCustomer(customer);
         details.setUser(user);

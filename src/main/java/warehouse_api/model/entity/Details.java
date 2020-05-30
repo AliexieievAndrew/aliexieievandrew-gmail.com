@@ -7,6 +7,7 @@ import warehouse_api.model.enums.DetailsType;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Table(name = "details")
@@ -58,6 +59,9 @@ public class Details {
 
     @Column(name = "additional_info")
     private String additionalInfo;
+
+    @Column (name = "order_id")
+    private UUID orderId;
 
     public Long getId() {
         return id;
@@ -147,6 +151,14 @@ public class Details {
         this.additionalInfo = additionalInfo;
     }
 
+    public UUID getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(UUID orderId) {
+        this.orderId = orderId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -171,6 +183,7 @@ public class Details {
                 ", item=" + item +
                 ", quantity=" + quantity +
                 ", additionalInfo='" + additionalInfo + '\'' +
+                ", orderId='" + orderId + '\'' +
                 '}';
     }
 }

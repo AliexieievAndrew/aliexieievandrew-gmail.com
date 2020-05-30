@@ -8,5 +8,6 @@
              item_id="5000"
              quantity="25"
              additional_info="test info"
+             order_id="3dd8dec0-20d4-11ea-aaef-0800200c9a66"
     />
 </dataset>
