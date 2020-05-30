@@ -93,8 +93,8 @@ public class BaseTest extends TestCase {
     }
 
     private String[] getFixtures() {
-        return new String[]{"category.xml","user.xml", "customer.xml"};
-    }
+        return new String[]{"category.xml","user.xml", "customer.xml", "item.xml"};
+    } //"item.xml"
 
     private void operatedTestDB(Connection connection, DatabaseOperation operation) throws Exception {
         IDatabaseConnection iDatabaseConnection = new DatabaseConnection(connection);

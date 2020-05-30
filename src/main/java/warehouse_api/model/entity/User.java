@@ -1,10 +1,12 @@
 package warehouse_api.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import warehouse_api.model.enums.UserRole;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "w_user")
@@ -22,13 +24,16 @@ public class User {
     @Column(name = "user_password")
     private String userPassword;
 
-
     @Column(name = "user_role")
     @Enumerated(value = EnumType.STRING)
     private UserRole userRole;
 
     @Column(name = "create_date")
     private Date createDate;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<Item> itemCreator;
 
     public Long getId() {
         return id;

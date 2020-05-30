@@ -1,7 +1,10 @@
 package warehouse_api.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "category")
@@ -15,6 +18,10 @@ public class Category {
 
     @Column (name = "category_name")
     private String categoryName;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
+    private Set<Item> itemCreator;
 
     public Long getId() {
         return id;
@@ -30,6 +37,14 @@ public class Category {
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
+    }
+
+    public Set<Item> getItemCreator() {
+        return itemCreator;
+    }
+
+    public void setItemCreator(Set<Item> itemCreator) {
+        this.itemCreator = itemCreator;
     }
 
     @Override
