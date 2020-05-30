@@ -20,4 +20,8 @@ public class CategoryService {
     public Category save(Category category) {
         return categoryDao.persist(category);
     }
+
+    public Category categoryByName(String name) {
+        return categoryDao.categoryByName(name);
+    }
 }

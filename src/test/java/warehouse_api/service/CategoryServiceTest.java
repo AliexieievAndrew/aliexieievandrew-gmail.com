@@ -6,40 +6,42 @@ import warehouse_api.config.BaseTest;
 import warehouse_api.model.entity.Category;
 import warehouse_api.repository.CategoryDao;
 
-import javax.ejb.EJB;
 import javax.naming.NamingException;
 import java.util.List;
 
 public class CategoryServiceTest extends BaseTest {
 
+    @Test
+    public void testContext() throws Exception{
+        CategoryService categoryService = (CategoryService) ctx.lookup("java:global/classes/CategoryService");
+        CategoryDao categoryDao = (CategoryDao) ctx.lookup("java:global/classes/CategoryDao");
+
+        Assert.assertNotNull(categoryService);
+        Assert.assertNotNull(categoryDao);
+    }
 
     @Test
     public void testAll() throws NamingException {
         CategoryService categoryService = (CategoryService) ctx.lookup("java:global/classes/CategoryService");
 
-        List<Category> all1 = categoryService.all();
-        CategoryDao categoryDao = (CategoryDao) ctx.lookup("java:global/classes/CategoryDao");
-        List<Category> all = categoryDao.findAll();
-        System.out.println("size:" + all.size());
-        System.out.println("TEST");
+        List<Category> all = categoryService.all();
+
+        Assert.assertNotNull(all);
+        Assert.assertTrue(all.size() > 0);
     }
 
     @Test
-    public void findAllTest() throws Exception {
-        CategoryService categoryService = (CategoryService) ctx.lookup("java:global/classes/CategoryService");
-        List<Category> all = categoryService.all();
+    public void testSave() throws NamingException {
+        String testName = "Test Name";
 
-        Assert.assertTrue(all.size() > 0);
+        CategoryService categoryService = (CategoryService) ctx.lookup("java:global/classes/CategoryService");
+
+        Category category = new Category();
+        category.setCategoryName(testName);
+
+        categoryService.save(category);
+        Category categoryFromDb = categoryService.categoryByName(testName);
+
+        Assert.assertTrue(testName.equals(categoryFromDb.getCategoryName()));
     }
-//
-//    @Test
-//    public void saveTest() throws Exception {
-//        CategoryService categoryService = (CategoryService) ctx.lookup("java:global/classes/CategoryService");
-//
-//        Category category = new Category();
-//        category.setCategoryName("test");
-//        categoryService.save(category);
-//
-//        Assert.assertTrue(true);
-//    }
 }

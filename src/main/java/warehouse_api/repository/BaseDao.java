@@ -3,7 +3,6 @@ package warehouse_api.repository;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
-import java.util.Map;
 
 public abstract class BaseDao<T> {
 

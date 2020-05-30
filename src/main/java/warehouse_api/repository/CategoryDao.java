@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 import javax.persistence.PersistenceUnit;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 
 @Transactional (rollbackOn = Exception.class)
@@ -27,5 +28,12 @@ public class CategoryDao extends BaseDao<Category>{
     @Override
     protected EntityManager getEntityManager() {
         return entityManagerFactory.createEntityManager();
+    }
+
+    public Category categoryByName(String name) {
+        Query query = getEntityManager().createQuery("FROM Category WHERE categoryName = :name");
+        query.setParameter("name", name);
+
+        return (Category) query.getSingleResult();
     }
 }
