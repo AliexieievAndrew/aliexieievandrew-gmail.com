@@ -101,6 +101,12 @@
             <version>0.3m</version>
         </dependency>
 
+<!--        <dependency>-->
+<!--            <groupId>org.apache.cxf</groupId>-->
+<!--            <artifactId>cxf-rt-security</artifactId>-->
+<!--            <version>3.3.0</version>-->
+<!--        </dependency>-->
+
     </dependencies>
 
     <build>
