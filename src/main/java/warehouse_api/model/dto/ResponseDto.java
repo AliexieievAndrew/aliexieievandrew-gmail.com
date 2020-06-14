@@ -1,19 +1,19 @@
 package warehouse_api.model.dto;
 
-public class ResponeDto {
+public class ResponseDto {
 
     private int errorCode = 0;
 
     private Object info;
 
-    public ResponeDto() {
+    public ResponseDto() {
     }
 
-    public ResponeDto(Object info) {
+    public ResponseDto(Object info) {
         this.info = info;
     }
 
-    public ResponeDto(int errorCode, Object info) {
+    public ResponseDto(int errorCode, Object info) {
         this.errorCode = errorCode;
         this.info = info;
     }

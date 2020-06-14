@@ -17,7 +17,7 @@ public class CategoryController extends BaseController {
     @GET
     @Path("categories")
     public Response getAll() {
-        return sendSucces(categoryService.all());
+        return sendSuccess(categoryService.all());
     }
 
     @GET // post
@@ -25,6 +25,6 @@ public class CategoryController extends BaseController {
     public Response save() {
         Category category = new Category();
         category.setCategoryName("new test category");
-        return sendSucces(categoryService.save(category));
+        return sendSuccess(categoryService.save(category));
     }
 }
