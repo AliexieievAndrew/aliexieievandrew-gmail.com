@@ -31,6 +31,6 @@ public class ItemDao extends BaseDao<Item>{
         Query query = getEntityManager().createQuery("FROM Item WHERE itemName = :name");
         query.setParameter("name", name);
 
-        return (Item) query.getSingleResult();
+        return (Item) query.getResultList().stream().findFirst().orElse(null);
     }
 }

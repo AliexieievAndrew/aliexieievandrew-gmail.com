@@ -34,6 +34,6 @@ public class CategoryDao extends BaseDao<Category>{
         Query query = getEntityManager().createQuery("FROM Category WHERE categoryName = :name");
         query.setParameter("name", name);
 
-        return (Category) query.getSingleResult();
+        return (Category) query.getResultList().stream().findFirst().orElse(null);
     }
 }

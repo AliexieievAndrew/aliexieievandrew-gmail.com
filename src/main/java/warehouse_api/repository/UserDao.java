@@ -33,6 +33,6 @@ public class UserDao extends BaseDao<User>{
         Query query = getEntityManager().createQuery("FROM User WHERE username = :name");
         query.setParameter("name", name);
 
-        return (User) query.getSingleResult();
+        return (User) query.getResultList().stream().findFirst().orElse(null);
     }
 }
