@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <item id="5000"
+            item_name="test name"
+            category_id="5000"
+            create_date="[create_date]"
+            user_id="5000"
+    />
+</dataset>
