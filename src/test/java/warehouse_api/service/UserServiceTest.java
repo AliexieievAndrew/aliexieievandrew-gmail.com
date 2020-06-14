@@ -3,6 +3,7 @@ package warehouse_api.service;
 import org.junit.Assert;
 import org.junit.Test;
 import warehouse_api.config.BaseTest;
+import warehouse_api.model.dto.UserCreateDto;
 import warehouse_api.model.entity.User;
 import warehouse_api.model.enums.UserRole;
 import warehouse_api.repository.UserDao;
@@ -51,4 +52,13 @@ public class UserServiceTest extends BaseTest {
         Assert.assertTrue(userName.equals(userDb.getUsername()));
     }
 
+    @Test
+    public void testCreateUser() throws Exception {
+        UserService userService = (UserService) ctx.lookup("java:global/classes/UserService");
+
+        UserCreateDto dto = new UserCreateDto("TestName", "TestPassword", UserRole.MANAGER);
+        User user = userService.createUser(dto);
+
+        Assert.assertNotNull(user);
+    }
 }
