@@ -3,6 +3,7 @@ package warehouse_api.service;
 import org.junit.Assert;
 import org.junit.Test;
 import warehouse_api.config.BaseTest;
+import warehouse_api.model.dto.CategoryCreateDto;
 import warehouse_api.model.entity.Category;
 import warehouse_api.repository.CategoryDao;
 
@@ -43,5 +44,20 @@ public class CategoryServiceTest extends BaseTest {
         Category categoryFromDb = categoryService.categoryByName(testName);
 
         Assert.assertTrue(testName.equals(categoryFromDb.getCategoryName()));
+    }
+
+    @Test
+    public void testCreate() throws Exception {
+        String categoryName = "testCreate";
+
+        CategoryCreateDto testCreate = new CategoryCreateDto(categoryName);
+
+        CategoryService categoryService = (CategoryService) ctx.lookup("java:global/classes/CategoryService");
+        categoryService.create(testCreate);
+
+        Category category = categoryService.categoryByName(categoryName);
+
+        Assert.assertNotNull(categoryName);
+        Assert.assertEquals(categoryName, category.getCategoryName());
     }
 }

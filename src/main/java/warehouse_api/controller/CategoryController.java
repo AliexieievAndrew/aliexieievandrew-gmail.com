@@ -1,10 +1,13 @@
 package warehouse_api.controller;
 
-import warehouse_api.model.entity.Category;
+import warehouse_api.model.dto.CategoryCreateDto;
 import warehouse_api.service.CategoryService;
+import warehouse_api.service.exception.BusinessException;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
@@ -20,11 +23,10 @@ public class CategoryController extends BaseController {
         return sendSuccess(categoryService.all());
     }
 
-    @GET // post
-    @Path("new")
-    public Response save() {
-        Category category = new Category();
-        category.setCategoryName("new test category");
-        return sendSuccess(categoryService.save(category));
+    @POST
+    @Path("create")
+    @RolesAllowed({"ADMIN"})
+    public Response create(CategoryCreateDto createDto) throws BusinessException {
+        return sendSuccess(categoryService.create(createDto));
     }
 }
