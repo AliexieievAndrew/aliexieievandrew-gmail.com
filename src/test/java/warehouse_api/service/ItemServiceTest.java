@@ -9,6 +9,7 @@ import warehouse_api.model.entity.Item;
 import warehouse_api.model.entity.User;
 import warehouse_api.repository.ItemDao;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -60,7 +61,18 @@ public class ItemServiceTest extends BaseTest {
     }
 
     @Test
-    public void testCrate() throws Exception {
+    public void testItemsByNames() throws Exception{
+        String itemName = "test name";
+        ItemService itemService = (ItemService) ctx.lookup("java:global/classes/ItemService");
+
+        List<Item> items = itemService.itemsByNames(Arrays.asList(itemName, ""));
+
+        Assert.assertTrue(items.size() > 0);
+        Assert.assertEquals(itemName, items.get(0).getItemName());
+    }
+
+    @Test
+    public void testCreate() throws Exception {
         String userName = "test name";
         String categoryName = "test name";
         String itemName = "new item name";

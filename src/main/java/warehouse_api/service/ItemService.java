@@ -33,7 +33,11 @@ public class ItemService {
     }
 
     public Item itemByName(String name) {
-        return itemDao.userByName(name);
+        return itemDao.itemByName(name);
+    }
+
+    public List<Item> itemsByNames(List<String> names) {
+        return itemDao.itemsByNames(names);
     }
 
     public Item create(ItemCreateDto createDto, String username) throws BusinessException {
