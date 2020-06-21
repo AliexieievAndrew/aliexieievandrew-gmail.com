@@ -1,48 +1,39 @@
 package warehouse_api.controller;
 
-import org.mindrot.jbcrypt.BCrypt;
 import warehouse_api.model.entity.User;
-import warehouse_api.service.UserService;
-import warehouse_api.service.exception.BadPasswordException;
-import warehouse_api.service.exception.UserNotFoundException;
+import warehouse_api.model.enums.UserRole;
+import warehouse_api.service.security.AuthenticationToken;
+import warehouse_api.service.security.AuthenticationTokenService;
+import warehouse_api.service.security.UserValidationService;
 
+import javax.annotation.security.PermitAll;
 import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.HashSet;
 
 @Path("auth")
 public class LoginController extends BaseController {
 
     @EJB
-    private UserService userService;
+    private UserValidationService userValidationService;
+
+    @EJB
+    private AuthenticationTokenService authenticationTokenService;
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("login")
+    @PermitAll
     public Response login(@QueryParam("username") String username, @QueryParam("password") String password) throws Exception {
-        authenticate(username, password);
+        User user = userValidationService.authenticate(username, password);
 
-        String token = issueToken(username);
+        String token = authenticationTokenService.issueToken(user.getUsername(), new HashSet<UserRole>() {{
+            add(user.getUserRole());
+        }});
 
-        return sendSuccess("");
-    }
-
-    private void authenticate(String username, String password) throws Exception {
-        User user = userService.userByName(username);
-
-        if(user == null) {
-            throw new UserNotFoundException(String.format("User %s not found", username));
-        }
-
-
-        if (!BCrypt.checkpw(password, user.getUserPassword())) {
-            throw new BadPasswordException("Password is wrong");
-        }
-    }
-
-    private String issueToken(String username) {
-        return "";
+        return sendSuccess(new AuthenticationToken(token));
     }
 }

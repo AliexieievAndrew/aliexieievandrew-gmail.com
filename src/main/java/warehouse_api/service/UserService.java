@@ -2,6 +2,7 @@ package warehouse_api.service;
 
 import org.mindrot.jbcrypt.BCrypt;
 import warehouse_api.model.dto.UserCreateDto;
+import warehouse_api.model.dto.UserListDto;
 import warehouse_api.model.entity.User;
 import warehouse_api.repository.UserDao;
 
@@ -9,6 +10,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Stateless
 public class UserService {
@@ -36,5 +38,9 @@ public class UserService {
         user.setCreateDate(new Date());
 
         return save(user);
+    }
+
+    public List<UserListDto> getAllUsers() {
+        return all().stream().map(UserListDto::new).collect(Collectors.toList());
     }
 }
