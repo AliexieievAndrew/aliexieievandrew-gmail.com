@@ -43,6 +43,9 @@ public class Item {
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private User user;
 
+    @Column(name = "quantity")
+    private Double quantity;
+
     @JsonIgnore
     @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
     private Set<Details> details;
@@ -55,6 +58,7 @@ public class Item {
         this.category = category;
         this.createDate = createDate;
         this.user = user;
+        this.quantity = 0D;
     }
 
     public Long getId() {
@@ -113,6 +117,14 @@ public class Item {
         this.user = user;
     }
 
+    public Double getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Double quantity) {
+        this.quantity = quantity;
+    }
+
     public Set<Details> getDetails() {
         return details;
     }
@@ -142,6 +154,7 @@ public class Item {
                 ", category=" + category +
                 ", createDate=" + createDate +
                 ", user=" + user +
+                ", quantity=" + quantity +
                 '}';
     }
 }

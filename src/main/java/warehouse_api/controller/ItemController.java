@@ -1,6 +1,5 @@
 package warehouse_api.controller;
 
-import warehouse_api.model.dto.CategoryCreateDto;
 import warehouse_api.model.dto.ItemCreateDto;
 import warehouse_api.model.entity.Item;
 import warehouse_api.service.ItemService;
