@@ -32,6 +32,7 @@ public class ItemController extends BaseController {
     @RolesAllowed({"ADMIN"})
     public Response create(ItemCreateDto createDto, @Context SecurityContext securityContext) throws BusinessException {
         Item item = itemService.create(createDto, securityContext.getUserPrincipal().getName());
+
         return sendCreated(item.getItemName() + " is created");
     }
 }
