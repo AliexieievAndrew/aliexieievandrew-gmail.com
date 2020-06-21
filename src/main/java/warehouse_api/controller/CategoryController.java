@@ -1,6 +1,7 @@
 package warehouse_api.controller;
 
 import warehouse_api.model.dto.CategoryCreateDto;
+import warehouse_api.model.entity.Category;
 import warehouse_api.service.CategoryService;
 import warehouse_api.service.exception.BusinessException;
 
@@ -27,6 +28,8 @@ public class CategoryController extends BaseController {
     @Path("create")
     @RolesAllowed({"ADMIN"})
     public Response create(CategoryCreateDto createDto) throws BusinessException {
-        return sendSuccess(categoryService.create(createDto));
+        Category category = categoryService.create(createDto);
+
+        return sendCreated(category.getCategoryName() + " is created");
     }
 }

@@ -47,6 +47,16 @@ public class Item {
     @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
     private Set<Details> details;
 
+    public Item() {
+    }
+
+    public Item(String itemName, Category category, Date createDate, User user) {
+        this.itemName = itemName;
+        this.category = category;
+        this.createDate = createDate;
+        this.user = user;
+    }
+
     public Long getId() {
         return id;
     }
