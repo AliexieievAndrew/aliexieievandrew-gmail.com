@@ -49,6 +49,7 @@ public class ItemServiceTest extends BaseTest {
         item.setUser(user);
         item.setCategory(category);
         item.setCreateDate(new Date());
+        item.setQuantity(0D);
 
         itemService.save(item);
 
