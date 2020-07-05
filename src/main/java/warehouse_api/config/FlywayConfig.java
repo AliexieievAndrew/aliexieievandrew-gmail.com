@@ -54,6 +54,7 @@ public class FlywayConfig {
         hikariConfig.setJdbcUrl(JDBC_URL);
         hikariConfig.setUsername(DB_USERNAME);
         hikariConfig.setPassword(DB_PASSWORD);
+        hikariConfig.setMaximumPoolSize(2);
 
         //datasource
         return new HikariDataSource(hikariConfig);

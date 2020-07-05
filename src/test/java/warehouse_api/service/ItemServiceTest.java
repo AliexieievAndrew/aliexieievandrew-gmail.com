@@ -2,7 +2,7 @@ package warehouse_api.service;
 
 import org.junit.Assert;
 import org.junit.Test;
-import warehouse_api.config.BaseTest;
+import warehouse_api.config.BaseTestConf;
 import warehouse_api.model.dto.ItemCreateDto;
 import warehouse_api.model.entity.Category;
 import warehouse_api.model.entity.Item;
@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-public class ItemServiceTest extends BaseTest {
+public class ItemServiceTest extends BaseTestConf {
 
     @Test
     public void testContext() throws Exception{

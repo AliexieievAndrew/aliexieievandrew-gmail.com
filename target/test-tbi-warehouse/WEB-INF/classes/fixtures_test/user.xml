@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<dataset>
-    <w_user id="5000"
-              username="test name"
-              user_password="test"
-              user_role="ADMIN"
-              create_date="2020-05-05 00:00:01"
-    />
-</dataset>

@@ -2,14 +2,14 @@ package warehouse_api.service;
 
 import org.junit.Assert;
 import org.junit.Test;
-import warehouse_api.config.BaseTest;
+import warehouse_api.config.BaseTestConf;
 import warehouse_api.model.entity.Customer;
 import warehouse_api.model.enums.CustomerType;
 import warehouse_api.repository.CustomerDao;
 
 import java.util.List;
 
-public class CustomerServiceTest extends BaseTest {
+public class CustomerServiceTest extends BaseTestConf {
 
     @Test
     public void testContext() throws Exception{

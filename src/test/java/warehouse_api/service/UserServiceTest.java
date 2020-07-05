@@ -2,7 +2,7 @@ package warehouse_api.service;
 
 import org.junit.Assert;
 import org.junit.Test;
-import warehouse_api.config.BaseTest;
+import warehouse_api.config.BaseTestConf;
 import warehouse_api.model.dto.UserCreateDto;
 import warehouse_api.model.entity.User;
 import warehouse_api.model.enums.UserRole;
@@ -11,7 +11,7 @@ import warehouse_api.repository.UserDao;
 import java.util.Date;
 import java.util.List;
 
-public class UserServiceTest extends BaseTest {
+public class UserServiceTest extends BaseTestConf {
 
     @Test
     public void testContext() throws Exception{

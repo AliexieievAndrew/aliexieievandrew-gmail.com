@@ -2,7 +2,7 @@ package warehouse_api.service;
 
 import org.junit.Assert;
 import org.junit.Test;
-import warehouse_api.config.BaseTest;
+import warehouse_api.config.BaseTestConf;
 import warehouse_api.model.StubGenerator;
 import warehouse_api.model.dto.BalanceDto;
 import warehouse_api.model.dto.DetailsCreateDto;
@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-public class DetailsServiceTest extends BaseTest {
+public class DetailsServiceTest extends BaseTestConf {
 
     @Test
     public void testContext() throws Exception{
