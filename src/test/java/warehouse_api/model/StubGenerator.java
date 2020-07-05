@@ -3,6 +3,7 @@ package warehouse_api.model;
 import warehouse_api.model.dto.CustomerCreateDto;
 import warehouse_api.model.dto.DetailsCreateDto;
 import warehouse_api.model.dto.DetailsDto;
+import warehouse_api.model.dto.ItemBalanceRequestDto;
 import warehouse_api.model.enums.CustomerType;
 import warehouse_api.model.enums.DetailsType;
 
@@ -29,5 +30,16 @@ public class StubGenerator {
         createDto.setCustomerAddress("test address");
 
         return createDto;
+    }
+
+    public static ItemBalanceRequestDto getBalanceDto() {
+        List<String> itemNames = new ArrayList<String>() {{
+            add("test name");
+        }};
+
+        ItemBalanceRequestDto balanceDto = new ItemBalanceRequestDto();
+        balanceDto.setItemNameList(itemNames);
+
+        return balanceDto;
     }
 }

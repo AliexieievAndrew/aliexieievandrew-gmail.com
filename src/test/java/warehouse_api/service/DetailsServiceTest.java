@@ -4,8 +4,9 @@ import org.junit.Assert;
 import org.junit.Test;
 import warehouse_api.config.BaseTestConf;
 import warehouse_api.model.StubGenerator;
-import warehouse_api.model.dto.BalanceDto;
+import warehouse_api.model.dto.Balance;
 import warehouse_api.model.dto.DetailsCreateDto;
+import warehouse_api.model.dto.ItemBalanceResponseDto;
 import warehouse_api.model.entity.Customer;
 import warehouse_api.model.entity.Details;
 import warehouse_api.model.entity.Item;
@@ -86,8 +87,17 @@ public class DetailsServiceTest extends BaseTestConf {
         ItemService itemService = (ItemService) ctx.lookup("java:global/classes/ItemService");
         List<Item> all = itemService.all();
 
+        List<Balance> balance = detailsService.getBalance(all);
 
-        List<BalanceDto> balance = detailsService.getBalance(all);
+        Assert.assertNotNull(balance);
+        Assert.assertTrue(balance.size() > 0);
+    }
+
+    @Test
+    public void testGetBalanceRequest() throws Exception {
+        DetailsService detailsService = (DetailsService) ctx.lookup("java:global/classes/DetailsService");
+
+        List<ItemBalanceResponseDto> balance = detailsService.getBalance(StubGenerator.getBalanceDto());
 
         Assert.assertNotNull(balance);
         Assert.assertTrue(balance.size() > 0);

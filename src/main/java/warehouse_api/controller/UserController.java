@@ -4,6 +4,7 @@ import warehouse_api.model.dto.UserCreateDto;
 import warehouse_api.model.entity.User;
 import warehouse_api.service.UserService;
 
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ws.rs.GET;
@@ -21,7 +22,8 @@ public class UserController extends BaseController {
 
     @POST
     @Path("create")
-    @RolesAllowed({"ADMIN"})
+//    @RolesAllowed({"ADMIN"})
+    @PermitAll
     public Response create(UserCreateDto dto) {
 
         User user = userService.createUser(dto);

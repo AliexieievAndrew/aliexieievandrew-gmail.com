@@ -1,9 +1,7 @@
 package warehouse_api.service;
 
 import javassist.NotFoundException;
-import warehouse_api.model.dto.BalanceDto;
-import warehouse_api.model.dto.DetailsCreateDto;
-import warehouse_api.model.dto.DetailsDto;
+import warehouse_api.model.dto.*;
 import warehouse_api.model.entity.Customer;
 import warehouse_api.model.entity.Details;
 import warehouse_api.model.entity.Item;
@@ -57,7 +55,7 @@ public class DetailsService {
 
         List<Item> items = fetchItems(createDto.getDetails());
 
-        List<BalanceDto> balance = getBalance(items);
+        List<Balance> balance = getBalance(items);
 
         UUID orderId = UUID.randomUUID();
         Date createDate = new Date();
@@ -96,8 +94,8 @@ public class DetailsService {
         return this.save(detailsList);
     }
 
-    public void validateBalance(Item item, List<BalanceDto> balance, Double currentQuantity) throws BusinessException {
-        for (BalanceDto balanceDto : balance) {
+    public void validateBalance(Item item, List<Balance> balance, Double currentQuantity) throws BusinessException {
+        for (Balance balanceDto : balance) {
             if(balanceDto.getItem().equals(item)) {
                 if ((balanceDto.getQuantity() + currentQuantity) < 0) {
 
@@ -108,8 +106,18 @@ public class DetailsService {
         }
     }
 
-    public List<BalanceDto> getBalance(List<Item> items) {
+    public List<Balance> getBalance(List<Item> items) {
         return detailsDao.balanceByItem(items);
+    }
+
+    public List<ItemBalanceResponseDto> getBalance(ItemBalanceRequestDto balanceDto) {
+        List<Item> items = itemService.itemsByNames(balanceDto.getItemNameList());
+
+        List<Balance> balance = getBalance(items);
+
+        return balance.stream()
+                .map(ItemBalanceResponseDto::new)
+                .collect(Collectors.toList());
     }
 
     private Double getCurrentQuantity(DetailsType detailsType, Double quantity) throws BusinessException {

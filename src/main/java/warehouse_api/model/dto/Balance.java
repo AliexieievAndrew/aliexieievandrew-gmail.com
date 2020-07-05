@@ -2,16 +2,16 @@ package warehouse_api.model.dto;
 
 import warehouse_api.model.entity.Item;
 
-public class BalanceDto {
+public class Balance {
 
     private Item item;
 
     private Double quantity;
 
-    public BalanceDto() {
+    public Balance() {
     }
 
-    public BalanceDto(Item item, Double quantity) {
+    public Balance(Item item, Double quantity) {
         this.item = item;
         this.quantity = quantity;
     }
