@@ -2,6 +2,7 @@ package warehouse_api.controller;
 
 import warehouse_api.model.dto.ItemCreateDto;
 import warehouse_api.model.entity.Item;
+import warehouse_api.model.entity.User;
 import warehouse_api.service.ItemService;
 import warehouse_api.service.exception.BusinessException;
 
@@ -30,7 +31,7 @@ public class ItemController extends BaseController {
     @Path("create")
     @RolesAllowed({"ADMIN"})
     public Response create(ItemCreateDto createDto, @Context SecurityContext securityContext) throws BusinessException {
-        Item item = itemService.create(createDto, securityContext.getUserPrincipal().getName());
+        Item item = itemService.create(createDto, getActiveUser());
 
         return sendCreated(item.getItemName() + " is created");
     }

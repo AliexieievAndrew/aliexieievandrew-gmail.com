@@ -1,9 +1,8 @@
 package warehouse_api.service;
 
 import warehouse_api.model.dto.ItemCreateDto;
-import warehouse_api.model.entity.Category;
-import warehouse_api.model.entity.Item;
-import warehouse_api.model.entity.User;
+import warehouse_api.model.entity.*;
+import warehouse_api.model.enums.DetailsType;
 import warehouse_api.repository.ItemDao;
 import warehouse_api.service.exception.BusinessException;
 
@@ -11,9 +10,14 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Stateless
 public class ItemService {
+
+    private static final String TECHNICAL_CUSTOMER = "TECHNICAL";
+
+    private static final String TECHNICAL_INIT_ITEM_INFO = "init item";
 
     @EJB
     private ItemDao itemDao;
@@ -23,6 +27,12 @@ public class ItemService {
 
     @EJB
     private UserService userService;
+
+    @EJB
+    private CustomerService customerService;
+
+    @EJB
+    private DetailsService detailsService;
 
     public List<Item> all() {
         return itemDao.findAll();
@@ -40,7 +50,7 @@ public class ItemService {
         return itemDao.itemsByNames(names);
     }
 
-    public Item create(ItemCreateDto createDto, String username) throws BusinessException {
+    public Item create(ItemCreateDto createDto, User user) throws BusinessException {
         Category category = categoryService.categoryByName(createDto.getCategoryName());
 
         if(category == null) {
@@ -53,10 +63,28 @@ public class ItemService {
             throw new BusinessException("Item: " + itemByName.getItemName() + " already exist");
         }
 
-        User user = userService.userByName(username);
-
         Item item = new Item(createDto.getName(), category, new Date(), user);
 
-        return save(item);
+        Item created = save(item);
+
+        prepareBalanceDetail(created, user);
+
+        return created;
+    }
+
+    private void prepareBalanceDetail(Item item, User user) {
+        Customer customer = customerService.customerByName(TECHNICAL_CUSTOMER);
+
+        Details details1 = new Details(
+                DetailsType.TECHNICAL,
+                new Date(),
+                user,
+                customer,
+                item,
+                0D,
+                TECHNICAL_INIT_ITEM_INFO,
+                UUID.randomUUID());
+
+        detailsService.save(details1);
     }
 }

@@ -5,4 +5,10 @@
               customer_type="PARTNER"
               customer_address="test"
     />
+
+    <customer id="5001"
+              customer_name="TECHNICAL"
+              customer_type="PARTNER"
+              customer_address="test"
+    />
 </dataset>

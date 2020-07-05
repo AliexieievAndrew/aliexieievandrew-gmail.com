@@ -78,10 +78,13 @@ public class ItemServiceTest extends BaseTestConf {
         String itemName = "new item name";
 
         ItemService itemService = (ItemService) ctx.lookup("java:global/classes/ItemService");
+        UserService userService = (UserService) ctx.lookup("java:global/classes/UserService");
+
+        User user = userService.userByName(userName);
 
         ItemCreateDto dto = new ItemCreateDto(itemName, categoryName);
 
-        itemService.create(dto, userName);
+        itemService.create(dto, user);
 
         Item item = itemService.itemByName(itemName);
 
