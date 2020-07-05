@@ -51,7 +51,7 @@ public class DetailsService {
         Customer customer = customerService.customerByName(createDto.getCustomerName());
 
         if(customer == null) {
-            throw new BusinessException(createDto.getCustomerName() + "is not exist");
+            throw new BusinessException("Customer: " + createDto.getCustomerName() + " is not exist");
         }
 
         List<Item> items = fetchItems(createDto.getDetails());

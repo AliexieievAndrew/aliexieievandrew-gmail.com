@@ -1,9 +1,14 @@
 package warehouse_api.model.dto;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
 public class DetailsDto {
 
+    @NotNull
     private String itemName;
 
+    @Min(value = 1, message = "quantity cannot be less than 1")
     private Double quantity;
 
     private String additionalInfo;
