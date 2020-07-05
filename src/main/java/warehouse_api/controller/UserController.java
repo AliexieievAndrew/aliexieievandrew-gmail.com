@@ -22,8 +22,7 @@ public class UserController extends BaseController {
 
     @POST
     @Path("create")
-//    @RolesAllowed({"ADMIN"})
-    @PermitAll
+    @RolesAllowed({"ADMIN"})
     public Response create(UserCreateDto dto) {
 
         User user = userService.createUser(dto);
