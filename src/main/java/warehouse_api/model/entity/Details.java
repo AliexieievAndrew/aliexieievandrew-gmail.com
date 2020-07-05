@@ -63,6 +63,20 @@ public class Details {
     @Column (name = "order_id")
     private UUID orderId;
 
+    public Details() {
+    }
+
+    public Details(DetailsType detailsType, Date createDate, User user, Customer customer, Item item, Double quantity, String additionalInfo, UUID orderId) {
+        this.detailsType = detailsType;
+        this.createDate = createDate;
+        this.user = user;
+        this.customer = customer;
+        this.item = item;
+        this.quantity = quantity;
+        this.additionalInfo = additionalInfo;
+        this.orderId = orderId;
+    }
+
     public Long getId() {
         return id;
     }

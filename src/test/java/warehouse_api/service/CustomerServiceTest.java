@@ -43,7 +43,7 @@ public class CustomerServiceTest extends BaseTest {
 
         customerService.save(customer);
 
-        Customer customerDb = customerService.userByName(customerName);
+        Customer customerDb = customerService.customerByName(customerName);
 
         Assert.assertNotNull(customerDb);
         Assert.assertTrue(customerName.equals(customerDb.getCustomerName()));

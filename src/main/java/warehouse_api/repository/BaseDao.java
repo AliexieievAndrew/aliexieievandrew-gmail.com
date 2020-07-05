@@ -2,6 +2,7 @@ package warehouse_api.repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.transaction.Transactional;
 import java.util.List;
 
 public abstract class BaseDao<T> {
@@ -21,6 +22,13 @@ public abstract class BaseDao<T> {
     public T persist(T entity) {
         getEntityManager().persist(entity);
         return entity;
+    }
+
+    @Transactional(rollbackOn = Exception.class)
+    public List<T> persist(List<T> entities) {
+        entities.forEach(e -> getEntityManager().persist(e));
+
+        return entities;
     }
 
     public T edit (T entity) {

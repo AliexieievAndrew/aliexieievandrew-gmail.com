@@ -21,7 +21,7 @@ public class CustomerService {
         return customerDao.persist(user);
     }
 
-    public Customer userByName(String name) {
+    public Customer customerByName(String name) {
         return customerDao.customerByName(name);
     }
 
