@@ -4,5 +4,7 @@ public enum  DetailsType {
 
     INCOME,
 
-    OUTCOME
+    OUTCOME,
+
+    TECHNICAL
 }

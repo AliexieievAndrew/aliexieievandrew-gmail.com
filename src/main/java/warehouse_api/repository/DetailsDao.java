@@ -1,6 +1,8 @@
 package warehouse_api.repository;
 
+import warehouse_api.model.dto.BalanceDto;
 import warehouse_api.model.entity.Details;
+import warehouse_api.model.entity.Item;
 import warehouse_api.model.enums.DetailsType;
 
 import javax.ejb.Stateless;
@@ -34,5 +36,16 @@ public class DetailsDao extends BaseDao<Details> {
         query.setParameter("detailsType", detailsType);
 
         return (List<Details>) query.getResultList();
+    }
+
+    public List<BalanceDto> balanceByItem(List<Item> itemList) {
+        Query query = getEntityManager().createQuery(
+                "SELECT new warehouse_api.model.dto.BalanceDto(d.item, sum(d.quantity)) " +
+                        "FROM Details d " +
+                        "WHERE d.item IN :itemList " +
+                        "GROUP BY d.item", BalanceDto.class)
+                .setParameter("itemList", itemList);
+
+        return (List<BalanceDto>) query.getResultList();
     }
 }

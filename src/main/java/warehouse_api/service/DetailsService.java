@@ -1,6 +1,7 @@
 package warehouse_api.service;
 
 import javassist.NotFoundException;
+import warehouse_api.model.dto.BalanceDto;
 import warehouse_api.model.dto.DetailsCreateDto;
 import warehouse_api.model.dto.DetailsDto;
 import warehouse_api.model.entity.Customer;
@@ -56,18 +57,25 @@ public class DetailsService {
 
         List<Item> items = fetchItems(createDto.getDetails());
 
+        List<BalanceDto> balance = getBalance(items);
+
         UUID orderId = UUID.randomUUID();
         Date createDate = new Date();
 
         List<Details> detailsList = new ArrayList<>();
 
-        for (DetailsDto dto : createDto.getDetails()) {
-            Optional<Item> optionalItem = items.stream().filter(item -> item.getItemName().equals(dto.getItemName())).findFirst();
+        for (DetailsDto detailsDto : createDto.getDetails()) {
+            Optional<Item> optionalItem = items.stream()
+                    .filter(item -> item.getItemName().equals(detailsDto.getItemName()))
+                    .findFirst();
 
             DetailsType detailsType = createDto.getDetailsType();
+            Double currentQuantity = getCurrentQuantity(detailsType, detailsDto.getQuantity());
 
             if(optionalItem.isPresent()) {
                 Item item = optionalItem.get();
+
+                this.validateBalance(item, balance, currentQuantity);
 
                 Details details = new Details(
                         detailsType,
@@ -75,21 +83,33 @@ public class DetailsService {
                         user,
                         customer,
                         item,
-                        getCurrentQuantity(detailsType, dto.getQuantity()),
-                        dto.getAdditionalInfo(),
+                        currentQuantity,
+                        detailsDto.getAdditionalInfo(),
                         orderId);
 
                 detailsList.add(details);
             } else {
-                throw new NotFoundException("Item: " + dto.getItemName() + " is not exist");
+                throw new NotFoundException("Item: " + detailsDto.getItemName() + " is not exist");
             }
         }
 
         return this.save(detailsList);
     }
 
-    private void checkBalance(Item item) {
+    public void validateBalance(Item item, List<BalanceDto> balance, Double currentQuantity) throws BusinessException {
+        for (BalanceDto balanceDto : balance) {
+            if(balanceDto.getItem().equals(item)) {
+                if ((balanceDto.getQuantity() + currentQuantity) < 0) {
 
+                    throw new BusinessException("The quantity for " + item.getItemName() +
+                            " is not correct. Balance is: " + balanceDto.getQuantity());
+                }
+            }
+        }
+    }
+
+    public List<BalanceDto> getBalance(List<Item> items) {
+        return detailsDao.balanceByItem(items);
     }
 
     private Double getCurrentQuantity(DetailsType detailsType, Double quantity) throws BusinessException {
