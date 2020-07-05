@@ -1,5 +1,6 @@
 package warehouse_api.service;
 
+import warehouse_api.model.dto.CustomerCreateDto;
 import warehouse_api.model.entity.Customer;
 import warehouse_api.repository.CustomerDao;
 
@@ -25,4 +26,12 @@ public class CustomerService {
         return customerDao.customerByName(name);
     }
 
+    public Customer createCustomer(CustomerCreateDto dto) {
+        Customer customer = new Customer();
+        customer.setCustomerName(dto.getCustomerName());
+        customer.setCustomerType(dto.getCustomerType());
+        customer.setCustomerAddress(dto.getCustomerAddress());
+
+        return save(customer);
+    }
 }

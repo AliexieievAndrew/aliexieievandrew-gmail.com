@@ -3,10 +3,13 @@ package warehouse_api.service;
 import org.junit.Assert;
 import org.junit.Test;
 import warehouse_api.config.BaseTestConf;
+import warehouse_api.model.StubGenerator;
+import warehouse_api.model.dto.CustomerCreateDto;
 import warehouse_api.model.entity.Customer;
 import warehouse_api.model.enums.CustomerType;
 import warehouse_api.repository.CustomerDao;
 
+import javax.naming.NamingException;
 import java.util.List;
 
 public class CustomerServiceTest extends BaseTestConf {
@@ -47,5 +50,14 @@ public class CustomerServiceTest extends BaseTestConf {
 
         Assert.assertNotNull(customerDb);
         Assert.assertTrue(customerName.equals(customerDb.getCustomerName()));
+    }
+
+    @Test
+    public void testCreateCustomer() throws Exception {
+        CustomerService customerService = (CustomerService) ctx.lookup("java:global/classes/CustomerService");
+
+        Customer created = customerService.createCustomer(StubGenerator.getCustomerCreateDto());
+
+        Assert.assertNotNull(created);
     }
 }
